@@ -25,43 +25,203 @@ class ServicesPrice{
 	}
 }
 
+interface Saloon{
+	int nonMembershipDiscount(String service);
+	int silverMembershipDiscount(String service);
+	int goldMembershipDiscount(String service);
+}
+
+class Saloon1 implements Saloon{
+	
+	private static int HairCutDiscount_nonMember = 0 ;
+	private static int  SpaDiscount_nonMember = 0 ;
+	private static int PedicureDiscount_nonMember = 0 ;
+	private static int HairCutDiscount_silverMember = 100 ;
+	private static int  SpaDiscount_silverMember = 0 ;
+	private static int PedicureDiscount_silverMember = 0 ;
+	private static int HairCutDiscount_goldMember = 100 ;
+	private static int  SpaDiscount_goldMember = 50 ;
+	private static int PedicureDiscount_goldMember = 50 ;
+	
+	public int nonMembershipDiscount(String service)
+	{
+		switch(service) {
+		case "HairCut":
+			return HairCutDiscount_nonMember ;
+		case "Spa":
+			return SpaDiscount_nonMember ;
+		case "Pedicure":
+			return PedicureDiscount_nonMember ;
+		default :
+			return 0 ;
+		}
+	}
+	public int silverMembershipDiscount(String service)
+	{
+		switch(service) {
+		case "HairCut":
+			return HairCutDiscount_silverMember ;
+		case "Spa":
+			return  SpaDiscount_silverMember ;
+		case "Pedicure":
+			return PedicureDiscount_silverMember ;
+		default :
+			return 0 ;
+		}
+	}
+	public int goldMembershipDiscount(String service)
+	{
+		switch(service) {
+		case "HairCut":
+			return HairCutDiscount_goldMember ;
+		case "Spa":
+			return SpaDiscount_goldMember ;
+		case "Pedicure":
+			return PedicureDiscount_goldMember ;
+		default :
+			return 0 ;
+		}
+	}
+}
+class Saloon2 implements Saloon{
+	
+	private static int HairCutDiscount_nonMember = 0 ;
+	private static int  SpaDiscount_nonMember = 0 ;
+	private static int PedicureDiscount_nonMember = 0 ;
+	private static int HairCutDiscount_silverMember = 100 ;
+	private static int  SpaDiscount_silverMember = 20 ;
+	private static int PedicureDiscount_silverMember = 30 ;
+	private static int HairCutDiscount_goldMember = 100 ;
+	private static int  SpaDiscount_goldMember = 60 ;
+	private static int PedicureDiscount_goldMember = 70 ;
+	
+	public int nonMembershipDiscount(String service)
+	{
+		switch(service) {
+		case "HairCut":
+			return HairCutDiscount_nonMember ;
+		case "Spa":
+			return SpaDiscount_nonMember ;
+		case "Pedicure":
+			return PedicureDiscount_nonMember ;
+		default :
+			return 0 ;
+		}
+	}
+	public int silverMembershipDiscount(String service)
+	{
+		switch(service) {
+		case "HairCut":
+			return HairCutDiscount_silverMember ;
+		case "Spa":
+			return  SpaDiscount_silverMember ;
+		case "Pedicure":
+			return PedicureDiscount_silverMember ;
+		default :
+			return 0 ;
+		}
+	}
+	public int goldMembershipDiscount(String service)
+	{
+		switch(service) {
+		case "HairCut":
+			return HairCutDiscount_goldMember ;
+		case "Spa":
+			return SpaDiscount_goldMember ;
+		case "Pedicure":
+			return PedicureDiscount_goldMember ;
+		default :
+			return 0 ;
+		}
+	}
+}
+class Saloon3 implements Saloon{
+	
+	private static int HairCutDiscount_nonMember = 0 ;
+	private static int  SpaDiscount_nonMember = 0 ;
+	private static int PedicureDiscount_nonMember = 0 ;
+	private static int HairCutDiscount_silverMember = 100 ;
+	private static int  SpaDiscount_silverMember = 50 ;
+	private static int PedicureDiscount_silverMember = 20 ;
+	private static int HairCutDiscount_goldMember = 100 ;
+	private static int  SpaDiscount_goldMember = 60 ;
+	private static int PedicureDiscount_goldMember = 50 ;
+	
+	public int nonMembershipDiscount(String service)
+	{
+		switch(service) {
+		case "HairCut":
+			return HairCutDiscount_nonMember ;
+		case "Spa":
+			return SpaDiscount_nonMember ;
+		case "Pedicure":
+			return PedicureDiscount_nonMember ;
+		default :
+			return 0 ;
+		}
+	}
+	public int silverMembershipDiscount(String service)
+	{
+		switch(service) {
+		case "HairCut":
+			return HairCutDiscount_silverMember ;
+		case "Spa":
+			return  SpaDiscount_silverMember ;
+		case "Pedicure":
+			return PedicureDiscount_silverMember ;
+		default :
+			return 0 ;
+		}
+	}
+	public int goldMembershipDiscount(String service)
+	{
+		switch(service) {
+		case "HairCut":
+			return HairCutDiscount_goldMember ;
+		case "Spa":
+			return SpaDiscount_goldMember ;
+		case "Pedicure":
+			return PedicureDiscount_goldMember ;
+		default :
+			return 0 ;
+		}
+	}
+}
+
 interface MemberShip{
-	 int costOfService(String service) ;	
+	 int costOfService(String service,Saloon s) ;	
 }
 
 class NonMemberShip implements MemberShip{
 	
-    public  int costOfService(String service)
+    public  int costOfService(String service,Saloon s)
 	{
-    	int price ;
+    	int price ,discount ;
 		price = ServicesPrice.getPrice(service) ;
-		return price ;
+		discount = s.nonMembershipDiscount(service);
+		return price - (price*discount)/100 ;
 	}
 }
 
 class SilverMemberShip implements  MemberShip{
 	
-	 public int costOfService(String service)
+	 public int costOfService(String service,Saloon s)
 		{
-		    int price = 0 ;
-			if(service == "Spa" || service == "Spa")
-			{
-				price = ServicesPrice.getPrice(service) * 50 / 100 ;
-			}
-			return price ;
+		 int price ,discount ;
+		 price = ServicesPrice.getPrice(service) ;
+		 discount = s.silverMembershipDiscount(service);
+		  return price - (price*discount)/100 ;
 		}
 }
 
 class GoldMemberShip implements  MemberShip{
 	
-	 public  int costOfService(String service)
+	 public  int costOfService(String service,Saloon s)
 		{
-	    	int price = 0 ;
-			if(service == "Pedicure")
-			{
-				price = ServicesPrice.getPrice(service) * 25/100 ;
-			}
-			return price ;
+		 int price ,discount ;
+		 price = ServicesPrice.getPrice(service) ;
+		 discount = s.goldMembershipDiscount(service);
+		  return price - (price*discount)/100 ;
 		}
 }
 public class Main {
@@ -70,6 +230,40 @@ public class Main {
 	{
 		Scanner scan = new Scanner(System.in);
 		
+		Saloon s = null ;
+		
+		System.out.println("Select Saloon : ");
+		System.out.println(" 1 - Saloon 1") ;
+		System.out.println(" 2 - Saloon 2") ;
+		System.out.println(" 3 - Saloon 3") ;
+		int saloon = scan.nextInt();
+		
+		switch(saloon) 
+		{
+			case 1 :
+				s = new Saloon1();
+				MembershipInTheSaloon(s)  ;
+				break;
+				
+			case 2 :
+				s = new  Saloon2();
+				MembershipInTheSaloon(s)  ;
+				 break;
+					
+			case 3 :
+				s = new  Saloon3();
+				MembershipInTheSaloon(s)  ;
+				 break;
+				 
+			default :
+				System.out.println("Sorry,you entered invalid input");
+				break;
+		}
+			
+	}
+	static void MembershipInTheSaloon(Saloon s)
+	{
+		Scanner scan = new Scanner(System.in);
 		MemberShip ms = null ;
 		
 		System.out.println("Select the type of membership  you have : ");
@@ -82,27 +276,25 @@ public class Main {
 		{
 			case 1 :
 				ms = new NonMemberShip();
-				availAllServicesForMembership(ms)  ;
+				availAllServicesForMembership(ms,s)  ;
 				break;
 				
 			case 2 :
 				ms = new SilverMemberShip();
-				 availAllServicesForMembership(ms)  ;
+				 availAllServicesForMembership(ms,s)  ;
 				 break;
 					
 			case 3 :
 				ms = new GoldMemberShip();
-				 availAllServicesForMembership(ms)  ;
+				 availAllServicesForMembership(ms,s)  ;
 				 break;
 				 
 			default :
 				System.out.println("Sorry,you entered invalid input");
 				break;
 		}
-			
 	}
-	
-   static void availAllServicesForMembership(MemberShip ms) {
+   static void availAllServicesForMembership(MemberShip ms,Saloon s) {
 	   
 	   Scanner scan = new Scanner(System.in);
 	   
@@ -115,7 +307,7 @@ public class Main {
 			service = getService();
 			if(service != null) 
 			{
-				price = ms.costOfService(service) ; 
+				price = ms.costOfService(service,s) ; 
 				totalPrice = totalPrice +price ;
 				System.out.println(service + " cost is "+price) ;
 			}
