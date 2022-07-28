@@ -1,4 +1,4 @@
-package javaQ22;
+package Q2;
 
 import java.util.Scanner;
 
@@ -18,7 +18,7 @@ class ServicesPrice{
 		{
 			return SpaPrice ;
 		}
-		else
+		else 
 		{
 			return PedicurePrice ;
 		}
@@ -63,7 +63,6 @@ class GoldMemberShip implements  MemberShip{
 			}
 			return price ;
 		}
-	
 }
 public class Main {
 
@@ -72,7 +71,7 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 		
 		MemberShip ms = null ;
-		String service = null ;
+		
 		System.out.println("Select the type of membership  you have : ");
 		System.out.println(" 1 - Non Member") ;
 		System.out.println(" 2 - Silver Member") ;
@@ -83,28 +82,51 @@ public class Main {
 		{
 			case 1 :
 				ms = new NonMemberShip();
-				service = getService();
+				availAllServicesForMembership(ms)  ;
 				break;
+				
 			case 2 :
 				ms = new SilverMemberShip();
-				service = getService();
-				break;
+				 availAllServicesForMembership(ms)  ;
+				 break;
+					
 			case 3 :
 				ms = new GoldMemberShip();
-				service = getService();
-				break;
+				 availAllServicesForMembership(ms)  ;
+				 break;
+				 
 			default :
 				System.out.println("Sorry,you entered invalid input");
 				break;
 		}
-		if( !ms.equals(null) && service != null )
-		{
-			int price = ms.costOfService(service) ; 
-			System.out.println(service + " cost is "+price) ;
-		}
 			
 	}
-    static String getService()
+	
+   static void availAllServicesForMembership(MemberShip ms) {
+	   
+	   Scanner scan = new Scanner(System.in);
+	   
+	   String service = null ;
+		int ans;
+		int price = 0 ;
+		int totalPrice = 0 ;
+		
+		do{
+			service = getService();
+			if(service != null) 
+			{
+				price = ms.costOfService(service) ; 
+				totalPrice = totalPrice +price ;
+				System.out.println(service + " cost is "+price) ;
+			}
+			System.out.println("Press 1 to avail more services and 0 to exit . ");
+			ans = scan.nextInt();
+			}while(ans == 1);
+		
+		System.out.println("Your total price is : "+totalPrice) ;
+	}
+   
+	static String getService()
 	{
     	Scanner scan = new Scanner(System.in);
 		System.out.println("Select the type of service  you want to avail : ");
